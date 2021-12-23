@@ -1,0 +1,391 @@
+\documentclass[a4paper,11pt,dvipdfmx.uplatex]{jsarticle}
+\usepackage[top=30truemm,bottom=30truemm,left=20truemm,right=20truemm]{geometry}
+\usepackage{here}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{ascmac}
+\usepackage{url}
+\setlength{\shaderule}{0pt} 
+
+\renewcommand{\figurename}{Fig. }
+\renewcommand{\tablename}{Table }
+
+\title{Rinko Title}
+\author{稲原 慶太}
+\date{2021.11.12}
+
+\begin{document}
+
+\twocolumn[
+  \begin{shadebox}
+    電気系輪講資料\hspace{\fill}2021.11.12
+    \begin{center}
+      {\bf \large 月・惑星の縦孔洞窟における探査ローバの研究動向 \\ Research Trends on Exploration Robots \\ for Lunar or Planetary Caves}
+    \end{center}
+    久保田研究室\hspace{\fill} 37-216486 稲原 慶太
+  \end{shadebox}
+]  
+  
+ \section*{\bf Abstract}
+ The lava tubes on the Moon or Mars have received a lot of attention as a
+one of candidates of human exploration outpost, because the temperature inside
+the tubes is stable and  the environment is protected from radiation.
+There may also have possible materials of high scientific value in the
+tubes.
+However, the cave exploration has three problems, communication,
+electric power and traversability. Therefore, it is so difficult for the
+conventional wheeled rovers to explore in the lava tubes. This
+introduces lava tube exploration missions and especially exploration
+robots with new mobility, transformer or jumping.
+ 
+\section{はじめに}
+2009年，日本の月探査機SELENE「かぐや」が，月面のマリウス丘群に巨大な縦孔（直径60m，深さ50m）を発見した\cite{lavatube}．この発見を受けて，Fig.\ref{月面縦孔}に示すように，米国探査機Lunar Reconnaissance Orbiter (LRO) が縦孔の高解像度画像の撮影を行った\cite{kireinalavatuve}．これを契機に，月面や火星表面に多くの縦孔の発見\cite{marslava1}\cite{marslava2}が続いた．これらの縦孔は，地下溶岩が通った後(Lava Tubeと呼ばれる)の天井の一部が，隕石の衝突によってできたものだと考えられている．月の表面は宇宙放射線にさらされ，表面温度が-170℃～＋110℃に変化するため\cite{kawano}，居住性は非常に悪い．対して，先に紹介した縦孔の洞窟内では放射線の影響も低く内部温度が−20℃～+30℃と安定していると考えられており\cite{kawano}，人類が将来月・火星で活動する際，基地建設の候補\cite{uzume}\cite{tateanariyou}となっている．また，洞窟内部は太陽光や宇宙放射線による風化が少ないため，太陽系の起源に解明につながる手がかり，火星においては生命の痕跡の発見が期待されている\cite{DuAxel}\cite{DAEDALUS}．\\ \\
+
+\vspace*{0.5pt}
+\begin{figure}[H]
+\centering
+  \includegraphics[width=6cm]{Figures/PIA13518_modest.jpg}
+  \caption{
+  月面の巨大な縦孔\cite{kireinalavatuve}\\
+  (Credit:NASA,GSFC,Arisona State University)}
+  \label{月面縦孔}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=7cm]{Figures/manabe.png}
+  \caption{縦孔とそれに続く洞窟（概念図）\cite{眞部}}
+  \label{縦孔概念図}
+\end{figure}
+
+
+
+\section{洞孔探査の課題}
+月・火星の縦孔や洞窟内は，Fig.\ref{縦孔概念図}に示すように，未踏破であり，洞孔探査には，天井の岩盤を原因とした通信の問題,太陽光が差さないことによる電力問題，天井の崩壊や溶岩流により大きな岩石など不整地のため走破性の問題がある． 
+\subsection{通信の問題}
+縦孔に続く洞窟の天井には厚い岩盤に覆われていると考えられており，地球上との通信が難しい.そこで，複数の小型ロボットを用いたアドホック通信\cite{Energy}，縦孔周辺に大型ローバを配置し，それを経由し地球と通信する方法\cite{DAEDALUS}などが考えられている．
+
+
+\subsection{電力問題}
+縦孔に続く洞窟の天井は太陽光が直接届かないため，太陽電池を用いた発電ができない．そのため，動力を太陽電池の代わりに放射性同位体熱電気転換器(RTG)を用いる方法，縦孔外の大型ローバからテザーを通した電力給電\cite{DuAxel}\cite{DAEDALUS}(Fig.\ref{waseda})が提案されている．また，先述した小型ロボット間の通信は，限られた電力容量を持つ小型ロボットにとって重大な懸案事項になっている．そこで小型ロボット間の無線通信網を経路とみなし，その最短経路を考慮する研究なども考えられている\cite{Energy}．
+
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=7cm]{Figures/waseda.png}
+  \caption{テザーでの電力給電 \\(Credit: Waseda Univ. Takanishi Lab.)}
+  \label{waseda}
+\end{figure}
+
+\subsection{走破性の問題}
+2012年に運用を開始したNASAのCuriosityは岩を避けきれず，Fig.\ref{hason}のように車輪を損傷した\cite{Pflueger}．従って，4輪/6輪のローバは大きな障害物を乗り越えるのは難しい．天井や地盤の崩落による巨大な岩が存在することを考慮すると4輪/6輪ローバを用いた縦孔探査は難しい．そこで縦孔近くまでは通常の4輪ローバとして接近し，縦孔に接近すると変形しテザーを使って2輪ローバとして縦孔崖の探査を行う方法\cite{DuAxel}や，月・火星の重力は地球に比べて小さく，より少ない力で大きな跳躍ができることを利用して，Fig.\ref{microbot}のようにロボットに人工筋肉の跳躍機構をつけ障害物を飛び越えるロボットの提案\cite{microbots}が行われている．
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=6cm]{Figures/curiosity-wheel.jpg}
+  \caption{Curiosityの車輪が破損した様子\cite{Pflueger}\\(Credit:NASA,GSFC,Arisona State University)}
+  \label{hason}
+\end{figure}
+
+
+    \begin{figure}[htbp]
+\centering
+  \includegraphics[width=7cm]{Figures/microbot-jump.jpg}
+  \caption{ロボットが人工筋肉で跳躍する様子\cite{DF}\\(Credit: NIAC,MIT)}
+  \label{microbot}
+\end{figure}
+
+
+
+\subsection{考察}
+縦孔探査にはいままで述べたように，様々な課題が存在する．その中でも走破性の向上はより長距離，長期間の探査を行うにあたって重要な課題になっている．本稿では縦孔探査の走破性を向上に着目し，「変形」と「跳躍」をキーワードに研究動向の紹介を行う．
+
+\section{可変構造型ロボット}
+\subsection{\bf DuAxel}
+NASA JPLのIssaらは縦孔の崖を探査するシンプルな2輪ローバ(Axel, Fig.\ref{axel}) を開発した\cite{Axel}．DuAxelは2つのAxelと中央モジュールが接続された4輪のローバである\cite{DuAxel}．DuAxelは縦孔の周辺近くまで4輪で走行する．縦孔が近くなると1つのAxelと中央モジュールは縦孔周辺に待機し，もう1つのAxelがテザーを張り巡らせながら縦孔の崖を降りて探査を行う（Fig.\ref{Duaxel}）.Axelはモータが4つ（タイヤの回転に2つとテザーを緩めたり巻いたりするものに2つ）のシンプルな構造であり，堅牢性が高く，より大きな障害物を乗り越えられる．また，あるモータが故障しても他のモータで代用できるなど冗長性のある設計を行っている．
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=5.5cm]{Figures/axelgaikan.png}
+  \caption{Axelの外観\cite{Axel}}
+  \label{axel}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=5.5cm]{Figures/duaxcelgaikan.png}
+  \caption{DuAxelの外観\cite{DuAxel}}
+  \label{Duaxel}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=6.5cm]{Figures/transfoeming.png}
+  \caption{縦孔近くで変形するロボット\cite{DuAxel}}
+  \label{henkei}
+\end{figure}
+
+
+\subsection{\bf Daedalus}
+DaedalusはESAとユリウス・マクシミリアン大学ヴュルツブルク校が開発した球型の縦孔探索ロボットである\cite{DAEDALUS}．Daedalusの見た目をFig.\ref{Daedalus}にしめし,Daedalusの仕様をTable\ref{Daedalusの仕様}に表す．Fig.\ref{teza-Daedalus}のようにテザーに繋がれたDaedalusを縦孔の仲に降ろし，Daedalusが月の縦孔の底に到着するとDaedalusは自律動作を行う．Daedalusは球内のモータ動力の伝達により動作していくが，障害物にぶつかるとDaedalusはFig.\ref{pole-Daedalus}のようにポールを伸ばし，Fig.\ref{ovwecomeDaedalus}に示すとおり障害物を乗り越える．
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=5cm]{Figures/Daedalusgaikan.png}
+  \caption{Daedalusの外観（球殻なし）\cite{DAEDALUS}}
+  \label{Daedalus}
+\end{figure}
+
+
+
+\begin{table}[htbp]
+\centering
+\caption{Daedalusの仕様\cite{DAEDALUS}}
+\label{Daedalusの仕様}
+\scalebox{0.8}{
+\begin{tabular}{cc}
+\hline
+Parameter                    & Value        \\ \hline
+Diameter                     & 464 mm       \\
+Mass(Daedalus)               & 20kg - 30 kg \\
+Cable Length                 & 80 m         \\
+Mass (Cable)                 & 12 kg        \\
+Operating Range(Temperature) & 100K - 330K  \\ \hline
+\end{tabular}
+}
+\end{table}
+
+
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=5cm]{Figures/teza-daidaros.jpg}
+  \caption{テザーで繋がれたDaedalus\cite{DAEDALUS}}
+  \label{teza-Daedalus}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=5cm]{Figures/pole-daedaros.png}
+  \caption{Daedalusがpoleを伸ばした様子\cite{DAEDALUS}}
+  \label{pole-Daedalus}
+\end{figure}
+
+\begin{figure*}[htbp]
+\centering
+  \includegraphics[width=15cm]{Figures/obstacles.png}
+  \caption{Daedalusが障害物を乗り越える様子\cite{DAEDALUS}}
+  \label{ovwecomeDaedalus}
+\end{figure*}
+
+
+
+\subsection{\bf FreeBot}
+香港中文大学のLinagらは，磁力を用いたロボットのドッキング構造を用いて，悪路の走破性を向上させるロボット(FreeBot)を提案した\cite{FreeBot}．FreeBotは磁性体の外殻と２つの内部の車輪の間に強力な磁石が設置されている．そのため，球型ロボットのように前進，旋回ができるだけでなく，複数のロボットが協力して障害物を乗り越えることができる．内部の車輪と外殻は接しており，内部の車輪が回転することで前進や旋回を行うことができる．これらの動作をうまく応用することでFig.\ref{合体分離}に示すとおり，複数のロボットを合体したり分離したりすることができる．
+
+Linagらは実験によりこれら一連の流れは約0.5[s]で完了することを確かめた．さらに2つのFreeBotが合体と分離を繰り返し，全体の形状を変化させることで，Fig.\ref{乗り越え}のように障害物を乗り越えることができることを同時に確かめた．
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=7cm]{Figures/freebot.jpg}
+  \caption{FreeBotの中身\cite{FreeBot}}
+  \label{FreeBotの中身}
+\end{figure}
+
+\vspace{20pt}
+
+\begin{table}[htbp]
+\centering
+\caption{FreeBotの仕様\cite{FreeBot}}
+\scalebox{0.8}{
+\begin{tabular}{cc}
+\hline
+Specification \& Performance & Value                                                  \\ \hline
+Overroll Dimentions          & 120$\times$120$\times$120 mm \\
+Module Weight                & 307.9 g                                                \\
+Magnetic remanence           & 14700 gauss                                            \\
+Time to Dock/Undock          & 0.5 s                                                  \\
+Max forward speed            & 1.2 Body Length/s                                      \\
+Max Steering speed           & 3.5 rad/s                                              \\
+Wheel Speed                  & 60 RPM                                                 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=7cm]{Figures/freebotmotionig.jpg}
+  \caption{球体が前進，旋回する様子\cite{FreeBot}}
+  \label{前進後退}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=7cm]{Figures/freebotforce.jpg}
+  \caption{磁力が引き合いロボットが合体する様子\cite{FreeBot}}
+  \label{合体}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+  \includegraphics[width=7cm]{Figures/freebotex2.jpg}
+  \caption{2つのFreeBotが協力して障害物を乗り越える様子\cite{FreeBot}}
+  \label{乗り越え}
+\end{figure}
+
+
+\begin{figure*}[htbp]
+\centering
+  \includegraphics[width=15cm]{Figures/gattaibunnri.jpg} 
+  \caption{2つのFreeBotの合体と分離\cite{FreeBot}}
+  \label{合体分離}
+\end{figure*}
+
+
+\subsection{月面変形ロボット}
+Fig.\ref{JAXA}に示すとおり，JAXA，タカラトミー，ソニーは月面での有人探査に先立ち，変形型月面ロボットを開発した．
+着陸機搭載時ロボットは収納し積載量を節約しているが，月面に降り立つと変形し探査を開始できる．月面は地球と比べて重力が6分の1でレゴリスに覆われており，地上と異なる環境である\cite{JAXA}．このロボットは2022年に月面に打ち上げ予定で，月面有人探査計画に先立った月面画像の撮影などに用いられる予定である．
+
+\begin{figure} [htbp]
+	\includegraphics[width=7cm]{Figures/JAXA.jpg}
+	\caption{月面変形ロボット\cite{JAXA}}
+	\label{JAXA}
+\end{figure}
+
+\section{跳躍ロボット}
+月や火星の重力は地球より小さいため（それぞれ1/6と1/3），跳躍ロボットは地球に比べてより小さな力でより高い距離を飛ぶことができる．
+
+\subsection{\bf MicroBots}
+MITのDubowskyらは，多数の超小型球型ロボットを火星の縦孔周りに展開し，縦孔探査を行う研究を行った．\cite{microbots}従来の4輪や6輪の車輪型ローバは傾斜や凹凸が多い場所の探査はむずかしい．そこで，安価で小型の球型ロボット(Microbot)を多数運用し堅牢で冗長性のあるシステムを構築したMicrobotの見た目をFig.19に示し，仕様をTable \ref{microbots}に記す．Microbotは誘電体エラストマーでできたアクチュエータを，小型の燃料電池で跳躍させることで動作する．跳躍時，Microbotが転倒しても重心のおかげでアクチュエータが下に来るようになっている．また，誘電体エラストマーを用いたアクチュエータは通常のDCモータやギアセットと比べると部品数が1/10から1/100で軽量であり，全体のシステムの軽量化にも寄与している．Microbotは，火星の重力下では高さ1.5m，水平1mの跳躍ができるようになっている．ここでDubowskyらは様々な材質表面下および斜度でMicrobotを跳躍させるシミュレーションがおこなわれている．シュミュレーションにより，様々な地形でMicrobotが移動できることを確かめている．
+
+\begin{figure} [htbp]
+    \centering
+	\includegraphics[width=\hsize]{Figures/microbots.png}
+	\caption{Microbotの外観\cite{microbots}}
+	\label{microbot}
+\end{figure}
+
+\vspace{20pt}
+
+\begin{table}[htpb]
+\centering
+\caption{Microbotsの仕様\cite{microbots}}
+\label{microbots}
+\begin{tabular}{lc}
+\hline
+Mass             & 0.1 kg \\
+Diameter         & 0.1 m  \\
+Hop Height        & 1.5 m  \\
+Distance per hop & 1.0m   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{figure*} [htbp]
+	\centering
+	\includegraphics[width=15cm]{Figures/JinkoKinniku.png}
+	\caption{人工筋肉が跳躍する様子\cite{microbots}}
+	\label{kinniku}
+\end{figure*}
+
+\begin{figure} [htbp]
+	\includegraphics[width=\hsize]{Figures/microbotsim.png}
+	\caption{
+	    様々な材質/傾斜で跳躍した結果\cite{microbots}}
+	\label{microbotsim}
+\end{figure}
+
+
+
+\subsection{内部衝突による跳躍ロボット}
+石川工業高等専門学校の藤岡らは従来開発されてきた内部の重心変化により移動する球型ロボット\cite{越山}\cite{halme}に加え，ばねの弾性により内部構造を球殻に衝突させることで，その慣性力でロボットを跳躍させる方法を提案した．Fig.\ref{内部構造}に球体ロボットの全体図，Table\ref{spec}に寸法，Fig.\ref{跳躍構造}に跳躍機構の図を示す.藤岡らは垂直投射と斜方投射をそれぞれ運動モデル化し，実際にシミュレーションと跳躍実験を行いそれぞれを比較した．垂直跳躍の結果をFig.\ref{垂直跳躍},射法跳躍の結果をFig.\ref{射法跳躍}に示す実際の跳躍結果は，シュミュレーション時の約53～ 56[％]となったが，これは，衝突の反発係数を考慮していないこと，内部の摩擦損失によるものであると考えられている．
+
+
+\begin{figure} [htbp]
+	\includegraphics[width=\hsize]{Figures/fujiokainside.png}
+	\caption{
+	   球体ロボットの内部構造\cite{藤岡}}
+	\label{内部構造}
+\end{figure}
+
+
+\begin{figure} [htbp]
+	\includegraphics[width=\hsize]{Figures/fujiokajump.png}
+	\caption{球体ロボットの跳躍構造\cite{藤岡}}
+	\label{跳躍構造}
+\end{figure}
+
+\begin{table}[htbp]
+\caption{球体ロボットの寸法\cite{藤岡}}
+\centering
+\label{spec}
+\scalebox{0.8}{
+\begin{tabular}{ccc}
+\hline
+Specification items             & Symbols & Values    \\ \hline
+Diameter      & D       & 0.2 m     \\
+Total weight                    & M       & 1.5146 kg \\
+Maximumheight of jumping        & $z_{max}$ & 0.43 m    \\
+Spring constant                 & k       & 9810 N/m  \\ \hline
+\end{tabular}
+}
+\end{table}
+
+
+\begin{figure} [htbp]
+	\includegraphics[width=7.5cm]{Figures/vjumpdjump.jpg}
+	\caption{水平跳躍と斜方跳躍\cite{藤岡}}
+	\label{水平跳躍と射法跳躍}
+\end{figure}
+
+\begin{figure} [htbp]
+	\includegraphics[width=7.5cm]{Figures/vjumpkekka.png}
+	\caption{
+	   垂直跳躍の結果\cite{藤岡}}
+	\label{垂直跳躍}
+\end{figure}
+
+\begin{figure} [htbp]
+	\includegraphics[width=7.5cm]{Figures/djumpkekka.png}
+	\caption{
+	   斜方跳躍の結果\cite{藤岡}}
+	\label{射法跳躍}
+\end{figure}
+
+
+
+
+\subsection{跳躍ロボットの課題}
+跳躍ロボットは月や火星上では小さい力で，よりたくさんの距離を飛ぶことができるため非常に有用であるが，跳躍した先を予想しにくい（跳躍先に岩石があるかもしれない），また跳躍ロボットはその性質上小型ロボットが多く，重い観測機材が乗せられない，振動に弱い部品を搭載できないといった課題がある．ロボット内部の部品にダメージを与えにくい新しい跳躍機構を調査する必要がある．
+
+\section{まとめと今後の展望}
+本稿では，月惑星の縦孔探索ロボットの駆動機構を走破性の向上という観点から調査を行った．調査の結果，変形や跳躍機構は月や火星上で非常に有用であるがまだまだ考慮すべき点も多いことがわかった．
+今後は跳躍機構と変形機構の利点をそれぞれ活かした新しいロボットの駆動機構の開発が研究対象になっていくのだろう．
+
+\begin{thebibliography}{99}
+\bibitem{lavatube}Haruyama, Junichi, et al., Possible lunar lava tube skylight observed by SELENE cameras, Geophysical Research Letters, 2009, 36.21.
+\bibitem{kireinalavatuve}Robinson, M. S., et al., Confirmation of sublunarean voids and thin layering in mare deposits, Planetary and Space Science, 2012, 69.1: 18-27.
+\bibitem{marslava1}Cushing, G. E., et al., THEMIS observes possible cave skylights on Mars, Geophysical Research Letters, 2007, 34.17.
+\bibitem{marslava2}後藤祐紀, et al., 火星エリシウム山麓における縦孔陥没地形リスト. 宇宙航空研究開発機構研究開発資料, 2017, 1-19.
+\bibitem{uzume} Haruyama, Junichi, et al., Mission Concepts of Unprecedented Zipangu Underworld of the Moon Exploration (UZUME) Project, Transactions of the Japan Society for Aeronautical and Space Sciences, Aerospace Technology Japan, 2016, 14.ists30: Pk 147-Pk 150.
+\bibitem{kawano}河野功, et al., 月火星の縦孔・地下空洞探査 (UZUME) 計画のシステム検討, 第16 回宇宙科学シンポジウム 講演集, 2016.
+\bibitem{tateanariyou}西堀俊幸, 春山純一, 久保田孝, 月惑星の縦孔・地下空洞探査: 月縦孔探査のミッションコンセプト. 宇宙科学技術連合講演会講演集, 2013, 57, p.4.
+\bibitem{Energy} Vaquero, Tiago, et al., Energy-aware data routing for disruption tolerant networks in planetary cave exploration, 2019.
+\bibitem{眞部} 眞部広紀, et al., UAV-UGV システムによる縦孔・地下空洞の計測探査シミュレーションの検討. 佐世保工業高等専門学校研究報告, 2020, 56: 95-104.
+\bibitem{rover}Troesch, Martina, et al., A Journey Through an Autonomous Multi-rover Coordination Scenario in Mars Cave Exploration, In: Proceedings of the International Conference on Planning and Scheduling (ICAPS 2018) System Demonstrations and Exhibits Track, Delft, The Netherlands. 2018. p. 24-29.
+\bibitem{DF}Steven Dubowsky,"Microbots for the Exploration of the Surface and Caves of the Bodies of the SolarSystem",NIAC\_Review\_10\_06.ppt,\url{http://www.niac.usra.edu/files/library/meetings/annual/oct06/1196Dubowsky.pdf}.
+\bibitem{Pflueger}M. Pflueger, A. Agha and G. S. Sukhatme, "Rover-IRL: Inverse Reinforcement Learning With Soft Value Iteration Networks for Planetary Rover Path Planning," in IEEE Robotics and Automation Letters, vol. 4, no. 2,April 2019, pp. 1387-1394.
+\bibitem{Axel}Nesnas, Issa AD, et al., Axel mobility platform for steep terrain excursions and sampling on planetary surfaces, In: 2008 IEEE Aerospace Conference. IEEE, 2008. p. 1-11.
+\bibitem{DuAxel}Nesnas, Issa AD, et al., Axel and DuAxel rovers for the sustainable exploration of extreme terrains, Journal of Field Robotics, 2012, 29.4: 663-685.
+\bibitem{DAEDALUS},Rossi et al., DAEDALUS - Descent And Exploration in Deep Autonomy of Lava Underground Structures,urn：nbn：de：bvb：20-opus-227911,2021
+\bibitem{FreeBot}Liang, Guanqi, et al., Freebot: A freeform modular self-reconfigurable robot with arbitrary connection point-design and implementation, In: 2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), IEEE, 2020. p. 6506-6513.
+\bibitem{JAXA}国立研究開発法人宇宙航空研究開発機構, "有人与圧ローバの実現に向けた変形型月面ロボットによる月面データ取得の実施決定について", \url{https://www.jaxa.jp/press/2021/05/20210527-1_j.html}, 2021年（令和3年）5月27日.
+\bibitem{microbots}Dubowsky, S., et al., A concept mission: microbots for large‐scale planetary surface and subsurface exploration, In: AIP conference proceedings. American Institute of Physics, 2005. p. 1449-1458.
+\bibitem{越山}越山篤, 藤井邦英, 有田恒一郎, 全方向型移動ロボットの制御に関する研究: 第 4 報, 完全球形ロボットの機構, 動作原理, 制御法および実験結果 (< 小特集> ロボットの知能化). 日本機械学会論文集 C 編, 1996, 62.602: 3793-3801.
+\bibitem{halme}Halme, Aarne, SCHONBERG, Torsten, WANG, Yan, Motion control of a spherical mobile robot, In: Proceedings of 4th IEEE International Workshop on Advanced Motion Control-AMC'96-MIE. IEEE, 1996, p. 259-264.
+\bibitem{藤岡}藤岡潤,中村成吾, 関啓明,全方向形回転跳躍球形ロボットの開発と制御, 日本機械学会論文集, 2016, 82.833: 15-00146-15-00146.
+
+\end{thebibliography} 
+
+
+
+\end{document}
